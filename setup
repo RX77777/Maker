@@ -1,5 +1,5 @@
 #!/bin/bash
-### Yukki Music Bot Installer
+### ElNqYb Music Bot Installer
 
 pprint (){
 	cred='\033[0;31m'
@@ -66,19 +66,11 @@ packages(){
 node(){
 	command -v npm &>/dev/null && return
 	pprint "Installing Nodejs and Npm..  "
-	curl -fssL https://deb.nodesource.com/setup_17.x | sudo -E bash - &>nodelog.txt &&
+	curl -fssL https://deb.nodesource.com/setup_18.x | sudo -E bash - &>nodelog.txt &&
 	sudo apt install nodejs -y &>>nodelog.txt &&
 	sudo npm i -g npm &>>nodelog.txt &&
 	pprint "SUCCESS!\n" "cgreen" || (pprint "FAIL.\n" "cred"; exit 1)
 }
-
-
-repo(){
-	# Get git repo if the installer is runned standalone
-	[[ ! "YukkiMusicBot" == $(basename -s .git `git config --get remote.origin.url`) ]] &&
-	git clone https://github.com/notreallyshikhar/YukkiMusicBot &&  cd YukkiMusicBot
-}
-
 
 installation(){
 	pprint "\n\nUpgrading pip and installing dependency packages.. "
@@ -88,50 +80,19 @@ installation(){
 	pprint "FAIL.\n" "cred"
 	exit 1
 }
-
-clear
-pprint "Welcome to Yukki Music Bot Setup Installer\n\n"
-pprint "If you see any error during Installation Process, Please refer to these files for logs: "
-pprint "\nFor node js errors , Checkout nodelog.txt"
-pprint "\nFor pypi packages errors , Checkout pypilog.txt"
-sleep 2
-pprint "\n\nScript needs sudo privileges in order to update & install packages.\n"
 sudo test
 
 update
 packages
 node
-repo
 installation
-pprint "\n\n\n\n\nYukki Music Bot Installation Completed!" "cgreen"
 sleep 4
-clear
-
-pprint "\nEnter Your Values Below\n\n\n"
-pprint "API ID: "; color_reset; read api_id
-pprint "\nAPI HASH: "; color_reset; read api_hash
-pprint "\nBOT TOKEN: "; color_reset; read bot_token
-pprint "\nMONGO DB URI: "; color_reset; read mongo_db
-pprint "\nLOG GROUP ID: "; color_reset; read logger
-pprint "\nPYROGRAM STRING SESSION OF ASSISTANT ACCOUNT: "; color_reset; read string_session
-pprint "\nMUSIC BOT NAME: "; color_reset; read mbt
-pprint "\nOwner Id:"; color_reset; read ownid
-
-pprint "\n\nProcessing your vars, Wait a while!" "cgreen"
 
 if [ -f .env ]; then
 	rm .env
 fi
 
-echo """API_ID = $api_id
-API_HASH = $api_hash
-BOT_TOKEN = $bot_token
-MONGO_DB_URI = $mongo_db
-LOG_GROUP_ID = $logger
-MUSIC_BOT_NAME = $mbt
-STRING_SESSION = $string_session
-OWNER_ID = $ownid""" > .env
+echo """OWNER
+Sasa""" > .env
 clear
-pprint "\n\n\nYour Vars have been saved Successfully!, Thanks for using Yukki Installer, now you can proceed by starting the bot with bash start!"
-pprint "\n\n\nWant more vars?"
-pprint "\nCheckout config.py and readme.md inside config folder for addtional vars. You can change all images , Thumbs, mode and everything from vars. Have a look towards them\n\n"
+pprint "\n\n\n\n\n ElNqYb Bot Completed!" "cgreen"
